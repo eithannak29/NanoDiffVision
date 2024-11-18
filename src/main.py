@@ -5,6 +5,7 @@ from data_loader import MNISTDataModule, CIFAR10DataModule
 from utils import load_config
 from model import ViT
 
+
 def main(config_path):
     config = load_config(config_path)
 
@@ -48,6 +49,7 @@ def main(config_path):
     trainer.fit(model=model, datamodule=data_module)
     trainer.test(model=model, datamodule=data_module)
     trainer.save_checkpoint("model.ckpt")
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Train a Vision Transformer model")

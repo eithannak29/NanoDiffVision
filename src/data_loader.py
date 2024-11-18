@@ -62,7 +62,12 @@ class MNISTDataModule(pl.LightningDataModule):
 
 
 class CIFAR10DataModule(pl.LightningDataModule):
-    def __init__(self, data_dir: str = "./data/CIFAR10", batch_size: int = 128, num_workers: int = 4):
+    def __init__(
+        self,
+        data_dir: str = "./data/CIFAR10",
+        batch_size: int = 128,
+        num_workers: int = 4,
+    ):
         super().__init__()
         self.data_dir = data_dir
         self.batch_size = batch_size
@@ -108,13 +113,21 @@ class CIFAR10DataModule(pl.LightningDataModule):
             )
 
     def train_dataloader(self):
-        return DataLoader(self.cifar_train, batch_size=self.batch_size, num_workers=self.num_workers)
+        return DataLoader(
+            self.cifar_train, batch_size=self.batch_size, num_workers=self.num_workers
+        )
 
     def val_dataloader(self):
-        return DataLoader(self.cifar_val, batch_size=self.batch_size, num_workers=self.num_workers)
+        return DataLoader(
+            self.cifar_val, batch_size=self.batch_size, num_workers=self.num_workers
+        )
 
     def test_dataloader(self):
-        return DataLoader(self.cifar_test, batch_size=self.batch_size, num_workers=self.num_workers)
+        return DataLoader(
+            self.cifar_test, batch_size=self.batch_size, num_workers=self.num_workers
+        )
 
     def predict_dataloader(self):
-        return DataLoader(self.cifar_predict, batch_size=self.batch_size, num_workers=self.num_workers)
+        return DataLoader(
+            self.cifar_predict, batch_size=self.batch_size, num_workers=self.num_workers
+        )
