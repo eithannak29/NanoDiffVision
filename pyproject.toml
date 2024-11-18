@@ -16,4 +16,5 @@ dependencies = [
     "tensorboard>=2.18.0",
     "torch==2.2.0",
     "torchvision>=0.17.0",
+    "wandb>=0.18.7",
 ]

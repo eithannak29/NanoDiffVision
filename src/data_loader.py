@@ -6,13 +6,18 @@ from torchvision import transforms
 
 
 class MNISTDataModule(pl.LightningDataModule):
-    def __init__(self, data_dir: str = "./data/MNIST", batch_size: int = 128):
+    def __init__(
+        self,
+        data_dir: str = "./data/MNIST",
+        batch_size: int = 128,
+        num_workers: int = 4,
+    ):
         super().__init__()
         self.data_dir = data_dir
         self.batch_size = batch_size
+        self.num_workers = num_workers
         self.transform = transforms.Compose(
-            [transforms.ToTensor(),
-             transforms.Normalize((0.1307,), (0.3081,))]
+            [transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))]
         )
 
     def prepare_data(self):
@@ -36,23 +41,32 @@ class MNISTDataModule(pl.LightningDataModule):
             )
 
     def train_dataloader(self):
-        return DataLoader(self.mnist_train, batch_size=self.batch_size)
+        return DataLoader(
+            self.mnist_train, batch_size=self.batch_size, num_workers=self.num_workers
+        )
 
     def val_dataloader(self):
-        return DataLoader(self.mnist_val, batch_size=self.batch_size)
+        return DataLoader(
+            self.mnist_val, batch_size=self.batch_size, num_workers=self.num_workers
+        )
 
     def test_dataloader(self):
-        return DataLoader(self.mnist_test, batch_size=self.batch_size)
+        return DataLoader(
+            self.mnist_test, batch_size=self.batch_size, num_workers=self.num_workers
+        )
 
     def predict_dataloader(self):
-        return DataLoader(self.mnist_predict, batch_size=self.batch_size)
+        return DataLoader(
+            self.mnist_predict, batch_size=self.batch_size, num_workers=self.num_workers
+        )
 
 
 class CIFAR10DataModule(pl.LightningDataModule):
-    def __init__(self, data_dir: str = "./data/CIFAR10", batch_size: int = 128):
+    def __init__(self, data_dir: str = "./data/CIFAR10", batch_size: int = 128, num_workers: int = 4):
         super().__init__()
         self.data_dir = data_dir
         self.batch_size = batch_size
+        self.num_workers = num_workers
         self.transform = transforms.Compose(
             [
                 transforms.RandomHorizontalFlip(),
@@ -94,13 +108,13 @@ class CIFAR10DataModule(pl.LightningDataModule):
             )
 
     def train_dataloader(self):
-        return DataLoader(self.cifar_train, batch_size=self.batch_size)
+        return DataLoader(self.cifar_train, batch_size=self.batch_size, num_workers=self.num_workers)
 
     def val_dataloader(self):
-        return DataLoader(self.cifar_val, batch_size=self.batch_size)
+        return DataLoader(self.cifar_val, batch_size=self.batch_size, num_workers=self.num_workers)
 
     def test_dataloader(self):
-        return DataLoader(self.cifar_test, batch_size=self.batch_size)
+        return DataLoader(self.cifar_test, batch_size=self.batch_size, num_workers=self.num_workers)
 
     def predict_dataloader(self):
-        return DataLoader(self.cifar_predict, batch_size=self.batch_size)
+        return DataLoader(self.cifar_predict, batch_size=self.batch_size, num_workers=self.num_workers)

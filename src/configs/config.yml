@@ -1,0 +1,22 @@
+model:
+  in_channels: 1
+  shape: 28
+  patch_size: 4
+  embedding_dim: 240
+  hidden_dim: 512
+  n_blocks: 7
+  n_heads: 6
+  out_dim: 10
+  dropout: 0.1
+
+data:
+  name: MNIST
+  batch_size: 128
+  data_dir: ./data
+  num_workers: 4
+
+trainer:
+  max_epochs: 3
+  logger:
+    save_dir: logs
+    name: ViT
