@@ -11,7 +11,8 @@ class MNISTDataModule(pl.LightningDataModule):
         self.data_dir = data_dir
         self.batch_size = batch_size
         self.transform = transforms.Compose(
-            [transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))]
+            [transforms.ToTensor(),
+             transforms.Normalize((0.1307,), (0.3081,))]
         )
 
     def prepare_data(self):
@@ -54,6 +55,17 @@ class CIFAR10DataModule(pl.LightningDataModule):
         self.batch_size = batch_size
         self.transform = transforms.Compose(
             [
+                transforms.RandomHorizontalFlip(),
+                transforms.RandAugment(num_ops=2, magnitude=9),
+                transforms.RandomCrop(32, 4),
+                transforms.ToTensor(),
+                transforms.Normalize(
+                    (0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)
+                ),
+            ]
+        )
+        self.test_transform = transforms.Compose(
+            [
                 transforms.ToTensor(),
                 transforms.Normalize(
                     (0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)
@@ -73,12 +85,12 @@ class CIFAR10DataModule(pl.LightningDataModule):
             )
         if stage == "test":
             self.cifar_test = CIFAR10(
-                self.data_dir, train=False, transform=self.transform
+                self.data_dir, train=False, transform=self.test_transform
             )
 
         if stage == "predict":
             self.cifar_predict = CIFAR10(
-                self.data_dir, train=False, transform=self.transform
+                self.data_dir, train=False, transform=self.test_transform
             )
 
     def train_dataloader(self):

@@ -73,7 +73,7 @@ class MLP(pl.LightningModule):
 
 
 class TransformerEncoder(pl.LightningModule):
-    def __init__(self, dim, hidden_dim ,n_heads, dropout=0.1):
+    def __init__(self, dim, hidden_dim, n_heads, dropout=0.1):
         super().__init__()
         self.ln_pre_attn = nn.LayerNorm(dim)
         self.attention = MultiHeadAttention(dim, n_heads)
@@ -93,7 +93,7 @@ class ViT(pl.LightningModule):
         shape=32,
         patch_size=4,
         embedding_dim=384,
-        hidden_dim = 1024,
+        hidden_dim=1024,
         n_blocks=7,
         n_heads=6,
         out_dim=10,
@@ -167,5 +167,5 @@ class ViT(pl.LightningModule):
         return {"test_loss": loss, "test_accuracy": acc}
 
     def configure_optimizers(self):
-        optimizer = torch.optim.AdamW(self.parameters(), lr=3e-4, weight_decay=1e-3)
+        optimizer = torch.optim.AdamW(self.parameters(), lr=3e-4, weight_decay=0.1)
         return optimizer
