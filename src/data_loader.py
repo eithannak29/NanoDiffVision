@@ -42,22 +42,34 @@ class MNISTDataModule(pl.LightningDataModule):
 
     def train_dataloader(self):
         return DataLoader(
-            self.mnist_train, batch_size=self.batch_size, num_workers=self.num_workers
+            self.mnist_train,
+            batch_size=self.batch_size,
+            num_workers=self.num_workers,
+            persistent_workers=True,
         )
 
     def val_dataloader(self):
         return DataLoader(
-            self.mnist_val, batch_size=self.batch_size, num_workers=self.num_workers
+            self.mnist_val,
+            batch_size=self.batch_size,
+            num_workers=self.num_workers,
+            persistent_workers=True,
         )
 
     def test_dataloader(self):
         return DataLoader(
-            self.mnist_test, batch_size=self.batch_size, num_workers=self.num_workers
+            self.mnist_test,
+            batch_size=self.batch_size,
+            num_workers=self.num_workers,
+            persistent_workers=True,
         )
 
     def predict_dataloader(self):
         return DataLoader(
-            self.mnist_predict, batch_size=self.batch_size, num_workers=self.num_workers
+            self.mnist_predict,
+            batch_size=self.batch_size,
+            num_workers=self.num_workers,
+            persistent_workers=True,
         )
 
 
@@ -114,20 +126,32 @@ class CIFAR10DataModule(pl.LightningDataModule):
 
     def train_dataloader(self):
         return DataLoader(
-            self.cifar_train, batch_size=self.batch_size, num_workers=self.num_workers
+            self.cifar_train,
+            batch_size=self.batch_size,
+            num_workers=self.num_workers,
+            persistent_workers=True,
         )
 
     def val_dataloader(self):
         return DataLoader(
-            self.cifar_val, batch_size=self.batch_size, num_workers=self.num_workers
+            self.cifar_val,
+            batch_size=self.batch_size,
+            num_workers=self.num_workers,
+            persistent_workers=True,
         )
 
     def test_dataloader(self):
         return DataLoader(
-            self.cifar_test, batch_size=self.batch_size, num_workers=self.num_workers
+            self.cifar_test,
+            batch_size=self.batch_size,
+            num_workers=self.num_workers,
+            persistent_workers=True,
         )
 
     def predict_dataloader(self):
         return DataLoader(
-            self.cifar_predict, batch_size=self.batch_size, num_workers=self.num_workers
+            self.cifar_predict,
+            batch_size=self.batch_size,
+            num_workers=self.num_workers,
+            persistent_workers=True,
         )

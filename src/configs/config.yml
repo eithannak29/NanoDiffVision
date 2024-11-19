@@ -2,12 +2,13 @@ model:
   in_channels: 1
   shape: 28
   patch_size: 4
-  embedding_dim: 240
-  hidden_dim: 512
+  embedding_dim: 120
+  hidden_dim: 256
   n_blocks: 7
   n_heads: 6
   out_dim: 10
   dropout: 0.1
+  use_diff_attention: True
 
 data:
   name: MNIST
