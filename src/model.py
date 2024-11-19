@@ -17,12 +17,12 @@ class PatchEmbeddings(pl.LightningModule):
 
 
 class MultiHeadAttention(pl.LightningModule):
-    def __init__(self, dim, n_heads):
+    def __init__(self, dim, num_heads):
         super().__init__()
-        self.n_heads = n_heads
+        self.num_heads = num_heads
         self.dim = dim
-        assert dim % n_heads == 0
-        self.head_dim = dim // n_heads
+        assert dim % num_heads == 0
+        self.head_dim = dim // num_heads
 
         self.K = nn.Linear(in_features=dim, out_features=dim)
         self.Q = nn.Linear(in_features=dim, out_features=dim)
@@ -31,7 +31,7 @@ class MultiHeadAttention(pl.LightningModule):
         self.out_proj = nn.Linear(in_features=dim, out_features=dim)
 
     def _reshape_and_transpose(self, tensor, batch_size, seq_len):
-        return tensor.view(batch_size, seq_len, self.n_heads, self.head_dim).transpose(
+        return tensor.view(batch_size, seq_len, self.num_heads, self.head_dim).transpose(
             1, 2
         )
 
@@ -51,12 +51,12 @@ class MultiHeadAttention(pl.LightningModule):
 
 
 class MultiHeadDiffAttention(pl.LightningModule):
-    def __init__(self, dim, n_heads, layer_idx):
+    def __init__(self, dim, num_heads, layer_idx):
         super().__init__()
-        self.n_heads = n_heads
+        self.num_heads = num_heads
         self.dim = dim
-        assert dim % n_heads == 0, "dim must be divisible by n_heads"
-        self.head_dim = dim // n_heads
+        assert dim % num_heads == 0, "dim must be divisible by num_heads"
+        self.head_dim = dim // num_heads
 
         self.K1 = nn.Linear(in_features=dim, out_features=dim)
         self.Q1 = nn.Linear(in_features=dim, out_features=dim)
@@ -66,10 +66,10 @@ class MultiHeadDiffAttention(pl.LightningModule):
 
         self.V = nn.Linear(in_features=dim, out_features=dim)
 
-        self.lambda_q1 = nn.Parameter(torch.randn(n_heads, 1))
-        self.lambda_k1 = nn.Parameter(torch.randn(n_heads, 1))
-        self.lambda_q2 = nn.Parameter(torch.randn(n_heads, 1))
-        self.lambda_k2 = nn.Parameter(torch.randn(n_heads, 1))
+        self.lambda_q1 = nn.Parameter(torch.randn(num_heads, 1))
+        self.lambda_k1 = nn.Parameter(torch.randn(num_heads, 1))
+        self.lambda_q2 = nn.Parameter(torch.randn(num_heads, 1))
+        self.lambda_k2 = nn.Parameter(torch.randn(num_heads, 1))
 
         self.lambda_init = 0.8 - 0.6 * torch.exp(torch.tensor(-0.3 * (layer_idx - 1)))
 
@@ -83,10 +83,10 @@ class MultiHeadDiffAttention(pl.LightningModule):
             - torch.exp(self.lambda_q2 * self.lambda_k2)
             + self.lambda_init
         )
-        return lambda_1.view(1, self.n_heads, 1, 1)
+        return lambda_1.view(1, self.num_heads, 1, 1)
 
     def _reshape_and_transpose(self, tensor, batch_size, seq_len):
-        return tensor.view(batch_size, seq_len, self.n_heads, self.head_dim).transpose(
+        return tensor.view(batch_size, seq_len, self.num_heads, self.head_dim).transpose(
             1, 2
         )
 
@@ -150,7 +150,7 @@ class TransformerEncoder(pl.LightningModule):
         self,
         dim,
         hidden_dim,
-        n_heads,
+        num_heads,
         dropout=0.1,
         use_diff_attention=False,
         layer_idx=1,
@@ -159,9 +159,9 @@ class TransformerEncoder(pl.LightningModule):
         self.ln_pre_attn = nn.LayerNorm(dim)
 
         if use_diff_attention:
-            self.attention = MultiHeadDiffAttention(dim, n_heads, layer_idx)
+            self.attention = MultiHeadDiffAttention(dim, num_heads, layer_idx)
         else:
-            self.attention = MultiHeadAttention(dim, n_heads)
+            self.attention = MultiHeadAttention(dim, num_heads)
 
         self.ln_pre_ffn = nn.LayerNorm(dim)
         self.ffn = MLP(dim, hidden_dim, dim, dropout)
@@ -176,12 +176,12 @@ class ViT(pl.LightningModule):
     def __init__(
         self,
         in_channels=1,
-        shape=32,
+        image_size=32,
         patch_size=4,
         embedding_dim=384,
         hidden_dim=1024,
-        n_blocks=7,
-        n_heads=6,
+        num_blocks=7,
+        num_heads=6,
         out_dim=10,
         dropout=0.1,
         use_diff_attention=False,
@@ -194,7 +194,7 @@ class ViT(pl.LightningModule):
         )
 
         # Positional Embeddings
-        num_patches = (shape // patch_size) ** 2
+        num_patches = (image_size // patch_size) ** 2
         self.positional_embeddings = nn.Parameter(
             torch.randn(1, 1 + num_patches, embedding_dim)
         )
@@ -208,12 +208,12 @@ class ViT(pl.LightningModule):
                 TransformerEncoder(
                     embedding_dim,
                     hidden_dim,
-                    n_heads,
+                    num_heads,
                     dropout,
                     use_diff_attention,
                     layer_idx=i,
                 )
-                for i in range(n_blocks)
+                for i in range(num_blocks)
             ]
         )
 

@@ -30,11 +30,11 @@ def main(config_path):
 
     model = ViT(
         in_channels=config_model["in_channels"],
-        shape=config_model["shape"],
+        image_size=config_model["image_size"],
         patch_size=config_model["patch_size"],
         embedding_dim=config_model["embedding_dim"],
         hidden_dim=config_model["hidden_dim"],
-        n_blocks=config_model["n_blocks"],
+        num_blocks=config_model["num_blocks"],
         n_heads=config_model["n_heads"],
         out_dim=config_model["out_dim"],
         dropout=config_model["dropout"],
