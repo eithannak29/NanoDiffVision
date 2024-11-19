@@ -36,9 +36,10 @@ class MultiHeadAttention(pl.LightningModule):
         ).transpose(1, 2)
 
     def forward(self, x):
-        K = self._reshape_and_transpose(self.K(x))
-        Q = self._reshape_and_transpose(self.Q(x))
-        V = self._reshape_and_transpose(self.V(x))
+        batch_size, seq_len, _ = x.shape
+        K = self._reshape_and_transpose(self.K(x), batch_size, seq_len)
+        Q = self._reshape_and_transpose(self.Q(x), batch_size, seq_len)
+        V = self._reshape_and_transpose(self.V(x), batch_size, seq_len)
 
         s = self.head_dim**0.5
 
