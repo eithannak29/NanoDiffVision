@@ -87,7 +87,7 @@ class CIFAR10DataModule(pl.LightningDataModule):
         self.transform = transforms.Compose(
             [
                 transforms.RandomHorizontalFlip(),
-                transforms.RandAugment(num_ops=2, magnitude=9),
+                transforms.RandAugment(num_ops=2, magnitude=10),
                 transforms.RandomCrop(32, 4),
                 transforms.ToTensor(),
                 transforms.Normalize(

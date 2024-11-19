@@ -35,7 +35,7 @@ def main(config_path):
         embedding_dim=config_model["embedding_dim"],
         hidden_dim=config_model["hidden_dim"],
         num_blocks=config_model["num_blocks"],
-        n_heads=config_model["n_heads"],
+        num_heads=config_model["num_heads"],
         out_dim=config_model["out_dim"],
         dropout=config_model["dropout"],
         use_diff_attention=config_model["use_diff_attention"],

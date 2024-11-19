@@ -17,7 +17,7 @@ data:
   num_workers: 4
 
 trainer:
-  max_epochs: 3
+  max_epochs: 2
   logger:
     save_dir: logs
     name: ViT

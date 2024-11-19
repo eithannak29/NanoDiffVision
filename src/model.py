@@ -21,7 +21,7 @@ class MultiHeadAttention(pl.LightningModule):
         super().__init__()
         self.num_heads = num_heads
         self.dim = dim
-        assert dim % num_heads == 0
+        assert dim % num_heads == 0, "dim must be divisible by num_heads"
         self.head_dim = dim // num_heads
 
         self.K = nn.Linear(in_features=dim, out_features=dim)
@@ -31,9 +31,9 @@ class MultiHeadAttention(pl.LightningModule):
         self.out_proj = nn.Linear(in_features=dim, out_features=dim)
 
     def _reshape_and_transpose(self, tensor, batch_size, seq_len):
-        return tensor.view(batch_size, seq_len, self.num_heads, self.head_dim).transpose(
-            1, 2
-        )
+        return tensor.view(
+            batch_size, seq_len, self.num_heads, self.head_dim
+        ).transpose(1, 2)
 
     def forward(self, x):
         K = self._reshape_and_transpose(self.K(x))
@@ -86,9 +86,9 @@ class MultiHeadDiffAttention(pl.LightningModule):
         return lambda_1.view(1, self.num_heads, 1, 1)
 
     def _reshape_and_transpose(self, tensor, batch_size, seq_len):
-        return tensor.view(batch_size, seq_len, self.num_heads, self.head_dim).transpose(
-            1, 2
-        )
+        return tensor.view(
+            batch_size, seq_len, self.num_heads, self.head_dim
+        ).transpose(1, 2)
 
     def forward(self, x):
         K1 = self.K1(x)
@@ -230,34 +230,31 @@ class ViT(pl.LightningModule):
         x = self.mlp_head(x)
         return x
 
-    def _shared_step(self, batch, batch_idx):
+    def _shared_step(self, batch):
         x, y = batch
         y_hat = self(x)
         loss = nn.CrossEntropyLoss(label_smoothing=0.1)(y_hat, y)
-        return loss, y_hat, y
-
-    def training_step(self, batch, batch_idx):
-        loss, y_hat, y = self._shared_step(batch, batch_idx)
         preds = torch.argmax(y_hat, dim=1)
         acc = (preds == y).float().mean()
-        self.log("train_loss", loss, prog_bar=True, on_epoch=True)
-        self.log("train_accuracy", acc, prog_bar=True, on_epoch=True)
+        return loss, acc
+
+    def _log_metrics(self, prefix, loss, acc, prog_bar=True, on_epoch=True):
+        self.log(f"{prefix}_loss", loss, prog_bar=prog_bar, on_epoch=on_epoch)
+        self.log(f"{prefix}_accuracy", acc, prog_bar=prog_bar, on_epoch=on_epoch)
+
+    def training_step(self, batch, batch_idx):
+        loss, acc = self._shared_step(batch)
+        self._log_metrics("train", loss, acc)
         return loss
 
     def validation_step(self, batch, batch_idx):
-        loss, y_hat, y = self._shared_step(batch, batch_idx)
-        preds = torch.argmax(y_hat, dim=1)
-        acc = (preds == y).float().mean()
-        self.log("val_loss", loss, prog_bar=True, on_epoch=True)
-        self.log("val_accuracy", acc, prog_bar=True, on_epoch=True)
+        loss, acc = self._shared_step(batch)
+        self._log_metrics("val", loss, acc)
         return {"val_loss": loss, "val_accuracy": acc}
 
     def test_step(self, batch, batch_idx):
-        loss, y_hat, y = self._shared_step(batch, batch_idx)
-        preds = torch.argmax(y_hat, dim=1)
-        acc = (preds == y).float().mean()
-        self.log("test_loss", loss, prog_bar=True)
-        self.log("test_accuracy", acc, prog_bar=True)
+        loss, acc = self._shared_step(batch)
+        self._log_metrics("test", loss, acc, prog_bar=True)
         return {"test_loss": loss, "test_accuracy": acc}
 
     def configure_optimizers(self):
