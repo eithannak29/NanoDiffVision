@@ -2,8 +2,8 @@ model:
   in_channels: 3
   image_size: 32
   patch_size: 4
-  embedding_dim: 270 # Changed from 252 to 270 to compare with diff attention model
-  hidden_dim: 512
+  embedding_dim: 384
+  hidden_dim: 1536
   num_blocks: 8
   num_heads: 6
   out_dim: 10
@@ -17,12 +17,12 @@ data:
   num_workers: 4
 
 trainer:
-  max_epochs: 80
-
+  max_epochs: 50
+  
 logger:
     save_dir: logs
-    name: lightViT_balanced
+    name: liteViT
 
 save:
   dir: ./saves/CIFAR10/
-  name: lightViT_balanced_model.ckpt
+  name: liteViT_model.ckpt
