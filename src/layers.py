@@ -6,11 +6,13 @@ class PatchEmbeddings(nn.Module):
         super().__init__()
         self.unfolding = nn.Unfold(kernel_size=patch_size, stride=patch_size)
         self.projection = nn.Linear(in_channels * patch_size**2, embedding_dim)
+        self.norm = nn.LayerNorm(embedding_dim)
 
     def forward(self, x):
         x = self.unfolding(x)  # H * W * C -> N * ( P * P * C)
         x = x.transpose(1, 2)  # N * ( P * P * C) -> N * ( P * P * C)
         x = self.projection(x)  # N * ( P * P * C) -> N * E
+        x = self.norm(x)
         return x
 
 

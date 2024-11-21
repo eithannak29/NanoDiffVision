@@ -10,7 +10,7 @@ from vit import ViT
 
 def train_model(config: Dict[str, Any]):
     data_module = get_data_module(config["data"])
-    model = ViT(**config["model"])
+    model = ViT(**config["model"], **config["trainer"])
     logger = WandbLogger(**config["logger"])
 
     checkpoint_callback = ModelCheckpoint(

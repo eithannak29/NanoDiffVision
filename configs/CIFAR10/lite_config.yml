@@ -2,12 +2,12 @@ model:
   in_channels: 3
   image_size: 32
   patch_size: 4
-  embedding_dim: 384
-  hidden_dim: 1536
-  num_blocks: 8
+  embedding_dim: 300
+  hidden_dim: 1024
+  num_blocks: 3
   num_heads: 6
   out_dim: 10
-  dropout: 0.1
+  dropout: 0.3
   use_diff_attention: False
 
 data:
@@ -18,11 +18,11 @@ data:
 
 trainer:
   max_epochs: 50
-  
+
 logger:
-    save_dir: logs
-    name: liteViT
+  save_dir: logs
+  name: CIFARliteViT
 
 save:
   dir: ./saves/CIFAR10/
-  name: liteViT_model.ckpt
+  name: CIFARliteViT_model.ckpt

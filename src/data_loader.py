@@ -1,12 +1,14 @@
 import pytorch_lightning as pl
 import torch
 from torch.utils.data import random_split, DataLoader
-from torchvision.datasets import MNIST, CIFAR10
+from torchvision.datasets import MNIST, FashionMNIST, CIFAR10
 from torchvision import transforms
 
 
 class BaseDataModule(pl.LightningDataModule):
-    def __init__(self, data_dir, batch_size, num_workers, transform, test_transform=None):
+    def __init__(
+        self, data_dir, batch_size, num_workers, transform, test_transform=None
+    ):
         super().__init__()
         self.data_dir = data_dir
         self.batch_size = batch_size
@@ -46,6 +48,7 @@ class BaseDataModule(pl.LightningDataModule):
             persistent_workers=True,
         )
 
+
 class MNISTDataModule(BaseDataModule):
     def __init__(self, data_dir="./data/MNIST", batch_size=128, num_workers=4):
         transform = transforms.Compose(
@@ -64,7 +67,37 @@ class MNISTDataModule(BaseDataModule):
                 mnist_full, [55000, 5000], generator=torch.Generator().manual_seed(42)
             )
         if stage in ("test", "predict", None):
-            self.test_dataset = MNIST(self.data_dir, train=False, transform=self.transform)
+            self.test_dataset = MNIST(
+                self.data_dir, train=False, transform=self.transform
+            )
+            self.predict_dataset = self.test_dataset
+
+
+class FashionMNISTDataModule(BaseDataModule):
+    def __init__(self, data_dir="./data/FashionMNIST", batch_size=128, num_workers=4):
+        transform = transforms.Compose(
+            [transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))]
+        )
+        super().__init__(data_dir, batch_size, num_workers, transform)
+
+    def prepare_data(self):
+        FashionMNIST(self.data_dir, train=True, download=True)
+        FashionMNIST(self.data_dir, train=False, download=True)
+
+    def setup(self, stage=None):
+        if stage in ("fit", None):
+            fashion_mnist_full = FashionMNIST(
+                self.data_dir, train=True, transform=self.transform
+            )
+            self.train_dataset, self.val_dataset = random_split(
+                fashion_mnist_full,
+                [55000, 5000],
+                generator=torch.Generator().manual_seed(42),
+            )
+        if stage in ("test", "predict", None):
+            self.test_dataset = FashionMNIST(
+                self.data_dir, train=False, transform=self.transform
+            )
             self.predict_dataset = self.test_dataset
 
 
@@ -76,13 +109,17 @@ class CIFAR10DataModule(BaseDataModule):
                 transforms.RandAugment(num_ops=2, magnitude=10),
                 transforms.RandomCrop(32, 4),
                 transforms.ToTensor(),
-                transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
+                transforms.Normalize(
+                    (0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)
+                ),
             ]
         )
         test_transform = transforms.Compose(
             [
                 transforms.ToTensor(),
-                transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
+                transforms.Normalize(
+                    (0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)
+                ),
             ]
         )
         super().__init__(data_dir, batch_size, num_workers, transform, test_transform)
@@ -98,5 +135,7 @@ class CIFAR10DataModule(BaseDataModule):
                 cifar_full, [45000, 5000], generator=torch.Generator().manual_seed(42)
             )
         if stage in ("test", "predict", None):
-            self.test_dataset = CIFAR10(self.data_dir, train=False, transform=self.test_transform)
+            self.test_dataset = CIFAR10(
+                self.data_dir, train=False, transform=self.test_transform
+            )
             self.predict_dataset = self.test_dataset

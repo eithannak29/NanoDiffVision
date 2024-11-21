@@ -20,6 +20,14 @@ cifar10:
 		echo "Finished configuration: $$file"; \
 	done
 
+fashionmnist:
+	@echo "Running all FashionMNIST configurations:"
+	@for file in $(FASHIONMNIST_CONFIG_FILES); do \
+		echo "Running configuration: $$file"; \
+		$(call RUN_COMMAND,$$file); \
+		echo "Finished configuration: $$file"; \
+	done
+
 mnist:
 	@echo "Running all MNIST configurations:"
 	@for file in $(MNIST_CONFIG_FILES); do \

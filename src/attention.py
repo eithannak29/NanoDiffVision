@@ -38,7 +38,7 @@ class MultiHeadAttention(nn.Module):
 
 
 class MultiHeadDiffAttention(nn.Module):
-    def __init__(self, dim, num_heads, layer_idx):
+    def __init__(self, dim, num_heads, layer_idx, num_groups=6):
         super().__init__()
         self.num_heads = num_heads
         self.dim = dim
@@ -60,7 +60,7 @@ class MultiHeadDiffAttention(nn.Module):
 
         self.lambda_init = 0.8 - 0.6 * torch.exp(torch.tensor(-0.3 * (layer_idx - 1)))
 
-        self.norm = nn.LayerNorm(normalized_shape=dim)  
+        self.norm =  nn.GroupNorm(num_groups=num_groups, num_channels=dim)
 
         self.out_proj = nn.Linear(in_features=dim, out_features=dim)
 
@@ -101,8 +101,11 @@ class MultiHeadDiffAttention(nn.Module):
         attention = attention_1 - lambda_1 * attention_2
 
         x = torch.matmul(attention, V)
-        x = x.transpose(1, 2).contiguous().view(x.shape[0], -1, self.dim)
+        x = x.transpose(1, 2).contiguous().view(batch_size, -1, self.dim)
+       
+        x = x.transpose(1, 2)
         x = self.norm(x)
+        x = x.transpose(1, 2)
         x = self.out_proj(x)
 
         return x

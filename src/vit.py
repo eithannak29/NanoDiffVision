@@ -3,6 +3,7 @@ import torch
 from torch import nn
 from layers import PatchEmbeddings, MLP
 from attention import MultiHeadAttention, MultiHeadDiffAttention
+from torch.optim.lr_scheduler import CosineAnnealingLR
 
 
 class TransformerEncoder(nn.Module):
@@ -44,8 +45,11 @@ class ViT(pl.LightningModule):
         out_dim=10,
         dropout=0.1,
         use_diff_attention=False,
+        max_epochs=50,
     ):
         super().__init__()
+        
+        self.max_epochs = max_epochs
 
         self.patch_embeddings = PatchEmbeddings(in_channels, patch_size, embedding_dim)
         num_patches = (image_size // patch_size) ** 2
@@ -106,5 +110,5 @@ class ViT(pl.LightningModule):
 
     def configure_optimizers(self):
         optimizer = torch.optim.AdamW(self.parameters(), lr=3e-4, weight_decay=0.1)
-        scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.1)
+        scheduler = CosineAnnealingLR(optimizer, self.max_epochs)
         return [optimizer], [scheduler]
