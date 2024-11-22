@@ -54,7 +54,7 @@ make config CONFIG_FILE=configs/CIFAR10/lite_config.yml
 
 ### Results on the MNIST Dataset
 
-The chart below compares the validation loss of three configurations of NanoDiffVision on the MNIST dataset:
+The chart below compares the validation loss of three configurations on the MNIST dataset:
 
 Three model configurations were evaluated on the MNIST dataset to compare the performance of the standard Vision Transformer and Differential Attention:
 
@@ -73,15 +73,27 @@ Three model configurations were evaluated on the MNIST dataset to compare the pe
 </div>
 
 
-### Analysis
+### Results on the FashionMNIST Dataset
 
-- **MNSITliteViT_Diff** achieves the best validation loss with a low parameter count, confirming the effectiveness of Differential Attention in reducing noise and extracting relevant information.
-- **MNSITliteViT_balanced**, despite having more parameters, does not show significant improvements, indicating potential overfitting.
-- **MNSITliteViT** remains competitive but is outperformed by the Differential Attention variant.
+#### Validation Loss on FashionMNIST Dataset
 
-### Conclusion
+The chart below compares the validation loss of three configurations on the FashionMNIST dataset:
 
-Differential Attention proves to be a promising approach for compact models, offering better relevance management without significantly increasing the parameter count.
+Three model configurations were evaluated on the FashionMNIST dataset to compare the performance of the standard Vision Transformer and Differential Attention:
+
+<div align="center">
+  
+| **Model**                | **Parameters** | **Validation Loss** | **Test Loss** | **Test Accuracy** |
+|--------------------------|----------------|---------------------|---------------|--------------------|
+| **FashionMNISTliteViT**         | 33.8K          | 0.813               | 0.826         | 85.86%            |
+| **FashionMNISTliteViT_balanced**| 55.6K          | 0.792               | 0.798         | 86.79%            |
+| **FashionMNISTliteViT_Diff**    | 38.1K          | 0.788               | 0.796         | 87.26%            |
+
+</div>
+
+<div align="center">
+  <img src="results/fashionmnist_val_loss_comparison.png" alt="Validation Loss on MNIST" width="600">
+</div>
 
 
 ## 🏛️ License
