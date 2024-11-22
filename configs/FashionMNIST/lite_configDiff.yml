@@ -11,7 +11,7 @@ model:
   use_diff_attention: True
 
 data:
-  name: MNIST
+  name: FashionMNIST
   batch_size: 128
   data_dir: ./data
   num_workers: 4

@@ -1,7 +1,9 @@
 CIFAR10_CONFIG_DIR := configs/CIFAR10
 MNIST_CONFIG_DIR := configs/MNIST
+FASHIONMNIST_CONFIG_DIR := configs/FashionMNIST
 CIFAR10_CONFIG_FILES := $(shell find $(CIFAR10_CONFIG_DIR) -type f -name '*.yml')
 MNIST_CONFIG_FILES := $(shell find $(MNIST_CONFIG_DIR) -type f -name '*.yml')
+FASHIONMNIST_CONFIG_FILES := $(shell find $(FASHIONMNIST_CONFIG_DIR) -type f -name '*.yml')
 MAIN_SCRIPT := src/main.py
 
 define RUN_COMMAND
