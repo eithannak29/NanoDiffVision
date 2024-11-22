@@ -2,15 +2,6 @@
 
 NanoDiffVision is a research project in Deep Learning aimed at re-implementing the Vision Transformer (ViT) from scratch while exploring and comparing two attention mechanisms: the classic Self-Attention and Differential Attention (introduced in the DIFF Transformer paper). The project focuses on compact models, making the approach accessible and efficient even with limited resources.
 
-## Table of Contents
-
-- [Background](#background)
-- [Objectives](#objectives)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Results](#results)
-- [License](#license)
-
 ## 📚 Background
 
 Transformers have revolutionized the field of computer vision. NanoDiffVision focuses on re-implementing the Vision Transformer (ViT) while evaluating Differential Attention, a recent mechanism designed to reduce attention noise and focus more on relevant information. The project builds on the insights from the Vision Transformer paper ["An Image is Worth 16x16 Words"](https://arxiv.org/abs/2010.11929) and the [DIFF Transformer paper](https://arxiv.org/abs/2410.05258), which introduces the Differential Attention mechanism.
