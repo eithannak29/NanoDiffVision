@@ -1,10 +1,17 @@
 # NanoDiffVision 🐜
 
-NanoDiffVision is a research project in Deep Learning aimed at re-implementing the Vision Transformer (ViT) from scratch while exploring and comparing two attention mechanisms: the classic Self-Attention and Differential Attention (introduced in the DIFF Transformer paper). The project focuses on compact models, making the approach accessible and efficient even with limited resources.
+![Python](https://img.shields.io/badge/Python-%233776AB.svg?style=flat&logo=python&logoColor=white)
+![PyTorch Lightning](https://img.shields.io/badge/PyTorchLightning-black.svg?style=flat&logo=lightning&logoColor=purple)
+![Differential Attention](https://img.shields.io/badge/Differential%20Attention-%23FF5722.svg)
+
+
+</div>
+
+NanoDiffVision is a research project in Deep Learning aimed at re-implementing the Vision Transformer (ViT) from scratch while exploring and comparing two attention mechanisms: the classic Self-Attention and Differential Attention (introduced in the DIFF Transformer paper). By integrating these advancements, the project envisions Differential Attention as a potential natural evolution of Transformers, offering a more efficient and focused mechanism for attention. The project focuses on compact models, making the approach accessible and efficient even with limited resources.
 
 ## 📚 Background
 
-Transformers have revolutionized the field of computer vision. NanoDiffVision focuses on re-implementing the Vision Transformer (ViT) while evaluating Differential Attention, a recent mechanism designed to reduce attention noise and focus more on relevant information. The project builds on the insights from the Vision Transformer paper ["An Image is Worth 16x16 Words"](https://arxiv.org/abs/2010.11929) and the [DIFF Transformer paper](https://arxiv.org/abs/2410.05258), which introduces the Differential Attention mechanism.
+Transformers have revolutionized the field of computer vision. NanoDiffVision focuses on re-implementing the Vision Transformer (ViT) while evaluating Differential Attention, a recent mechanism designed to reduce attention noise and focus more on relevant information. The project builds on the insights from the Vision Transformer paper ["An Image is Worth 16x16 Words"](https://arxiv.org/abs/2010.11929) and the [Differential Transformer paper](https://arxiv.org/abs/2410.05258), which introduces the Differential Attention mechanism.
 
 ## 🎯 Objectives
 
@@ -64,7 +71,7 @@ Three model configurations were evaluated on the MNIST dataset to compare the pe
 |--------------------------|----------------|---------------------|---------------|--------------------|
 | **ViT**         | 33.8K          | 0.638               | 0.626         | 95.51%            |
 | **ViTBalanced** | 55.6K          | 0.633               | 0.624         | 95.53%            |
-| **ViT_Diff**    | 38.1K          | 0.624               | 0.618         | 95.75%            |
+| **ViTDiff**    | 38.1K          | 0.624               | 0.618         | 95.75%            |
 
 </div>
 
@@ -85,9 +92,9 @@ Three model configurations were evaluated on the FashionMNIST dataset to compare
   
 | **Model**                | **Parameters** | **Validation Loss** | **Test Loss** | **Test Accuracy** |
 |--------------------------|----------------|---------------------|---------------|--------------------|
-| **FashionMNISTliteViT**         | 33.8K          | 0.813               | 0.826         | 85.86%            |
-| **FashionMNISTliteViT_balanced**| 55.6K          | 0.792               | 0.798         | 86.79%            |
-| **FashionMNISTliteViT_Diff**    | 38.1K          | 0.788               | 0.796         | 87.26%            |
+| **ViT**         | 33.8K          | 0.813               | 0.826         | 85.86%            |
+| **ViTBalanced** | 55.6K          | 0.792               | 0.798         | 86.79%            |
+| **ViTDiff**    | 38.1K          | 0.788               | 0.796         | 87.26%            |
 
 </div>
 
@@ -95,7 +102,16 @@ Three model configurations were evaluated on the FashionMNIST dataset to compare
   <img src="results/fashionmnist_val_loss_comparison.png" alt="Validation Loss on MNIST" width="600">
 </div>
 
+### Conclusion
 
-## 🏛️ License
+The results emphasize the potential of Differential Attention as a lightweight yet highly effective alternative to traditional Self-Attention mechanisms. With significantly fewer parameters compared to ViTBalanced, ViTDiff achieves comparable if not better performance across all evaluated metrics. This highlights its promise as a transformative approach in vision tasks, especially in resource-constrained environments.
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+## 🔗 References
+
+1. ["An Image is Worth 16x16 Words"](https://arxiv.org/abs/2010.11929)
+2. [Differential Transformer paper](https://arxiv.org/abs/2410.05258)
+
+## 💫 Show your support
+
+Give a 💫 if this project helped you understand Differential Attention!
+
