@@ -9,9 +9,7 @@ NanoDiffVision is a research project in Deep Learning aimed at re-implementing t
 - [Installation](#installation)
 - [Usage](#usage)
 - [Results](#results)
-- [Contributions](#contributions)
 - [License](#license)
-- [Todo List](#todo-list)
 
 ## 📚 Background
 
