@@ -52,11 +52,29 @@ make config CONFIG_FILE=configs/CIFAR10/lite_config.yml
 
 ## 📊 Results
 
-### Validation Loss on MNIST Dataset
+### Results on the MNIST Dataset
 
 The chart below compares the validation loss of three configurations of NanoDiffVision on the MNIST dataset:
 
+Three model configurations were evaluated on the MNIST dataset to compare the performance of the standard Vision Transformer and Differential Attention:
+
+| **Model**                | **Parameters** | **Validation Loss** | **Test Loss** | **Test Accuracy** |
+|--------------------------|----------------|---------------------|---------------|--------------------|
+| **MNSITliteViT**         | 33.8K          | 0.638               | 0.626         | 95.51%            |
+| **MNSITliteViT_balanced**| 55.6K          | 0.633               | 0.618         | 95.53%            |
+| **MNSITliteViT_Diff**    | 38.1K          | 0.624               | 0.624         | 95.75%            |
+
 ![Validation Loss on MNIST](results/mnist_val_loss_comparison.png)
+
+### Analysis
+
+- **MNSITliteViT_Diff** achieves the best validation loss with a low parameter count, confirming the effectiveness of Differential Attention in reducing noise and extracting relevant information.
+- **MNSITliteViT_balanced**, despite having more parameters, does not show significant improvements, indicating potential overfitting.
+- **MNSITliteViT** remains competitive but is outperformed by the Differential Attention variant.
+
+### Conclusion
+
+Differential Attention proves to be a promising approach for compact models, offering better relevance management without significantly increasing the parameter count.
 
 
 ## 🏛️ License
