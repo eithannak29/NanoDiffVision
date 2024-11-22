@@ -61,18 +61,10 @@ To run a specific configuration file:
 make config CONFIG_FILE=configs/CIFAR10/lite_config.yml
 ```
 
-## 🍊 Results
+## 📊 Results
 
 ## 🤝 Contributions
 
 ## 🏛️ License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
-## ✅ Todo List
-
-- [x]
-- [ ]
-- [ ]
-- [ ]
-
