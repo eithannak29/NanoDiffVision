@@ -65,7 +65,7 @@ Three model configurations were evaluated on the MNIST dataset to compare the pe
 | **ViT_Diff**    | 38.1K          | 0.624               | 0.618         | 95.75%            |
 
 <div style="text-align: center;">
-  <img src="results/mnist_val_loss_comparison.png" alt="Validation Loss on MNIST" width="300">
+  <img src="results/mnist_val_loss_comparison.png" alt="Validation Loss on MNIST" width="600">
 </div>
 
 ### Analysis
