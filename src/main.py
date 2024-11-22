@@ -18,18 +18,19 @@ def train_model(config: Dict[str, Any]):
         mode="min",
         save_top_k=1,
         dirpath=config["save"]["dir"],
-        filename=config["save"]["name"] + "-{epoch:02d}-{val_loss:.4f}",
+        filename=config["save"]["name"] + "-best",
     )
 
     trainer = Trainer(
         logger=logger, callbacks=[checkpoint_callback], **config["trainer"]
     )
     trainer.fit(model=model, datamodule=data_module)
+    
+    best_model_path = os.path.join(config["save"]["dir"], config["save"]["name"] + "-best.ckpt")
+    if best_model_path:
+        model = ViT.load_from_checkpoint(best_model_path)
+    
     trainer.test(model=model, datamodule=data_module)
-
-    save_path = os.path.join(config["save"]["dir"], config["save"]["name"])
-    trainer.save_checkpoint(save_path)
-
 
 def main(config_path: str):
     try:

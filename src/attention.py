@@ -38,7 +38,7 @@ class MultiHeadAttention(nn.Module):
 
 
 class MultiHeadDiffAttention(nn.Module):
-    def __init__(self, dim, num_heads, layer_idx, num_groups=6):
+    def __init__(self, dim, num_heads, layer_idx, num_groups=4):
         super().__init__()
         self.num_heads = num_heads
         self.dim = dim

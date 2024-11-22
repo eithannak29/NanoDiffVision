@@ -17,7 +17,7 @@ data:
   num_workers: 4
 
 trainer:
-  max_epochs: 10
+  max_epochs: 30
 
 logger:
     save_dir: logs

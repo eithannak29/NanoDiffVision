@@ -24,5 +24,5 @@ logger:
     name: MNISTliteViT_balanced
 
 save:
-  dir: ./saves/MNIST/
+  dir: ./saves/FashionMNIST
   name: MNISTliteViT_balanced_model.ckpt
