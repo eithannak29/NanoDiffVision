@@ -59,12 +59,6 @@ The chart below compares the validation loss of three configurations of NanoDiff
 Three model configurations were evaluated on the MNIST dataset to compare the performance of the standard Vision Transformer and Differential Attention:
 
 <div align="center">
-  <img src="results/mnist_val_loss_comparison.png" alt="Validation Loss on MNIST" width="600">
-</div>
-
-The chart below compares the validation loss of three configurations of NanoDiffVision on the MNIST dataset:
-
-<div align="center">
 
 | **Model**                | **Parameters** | **Validation Loss** | **Test Loss** | **Test Accuracy** |
 |--------------------------|----------------|---------------------|---------------|--------------------|
@@ -73,6 +67,14 @@ The chart below compares the validation loss of three configurations of NanoDiff
 | **ViT_Diff**    | 38.1K          | 0.624               | 0.618         | 95.75%            |
 
 </div>
+
+The chart below compares the validation loss of three configurations of NanoDiffVision on the MNIST dataset:
+
+<div align="center">
+  <img src="results/mnist_val_loss_comparison.png" alt="Validation Loss on MNIST" width="600">
+</div>
+
+
 ### Analysis
 
 - **MNSITliteViT_Diff** achieves the best validation loss with a low parameter count, confirming the effectiveness of Differential Attention in reducing noise and extracting relevant information.
