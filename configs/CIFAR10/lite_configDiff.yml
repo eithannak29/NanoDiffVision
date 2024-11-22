@@ -1,10 +1,10 @@
 model:
   in_channels: 3
   image_size: 32
-  patch_size: 4
+  patch_size: 8
   embedding_dim: 300
   hidden_dim: 1024
-  num_blocks: 3
+  num_blocks: 2
   num_heads: 6
   out_dim: 10
   dropout: 0.3

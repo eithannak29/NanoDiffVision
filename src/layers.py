@@ -4,15 +4,12 @@ from torch import nn
 class PatchEmbeddings(nn.Module):
     def __init__(self, in_channels=1, patch_size=8, embedding_dim=128):
         super().__init__()
-        self.unfolding = nn.Unfold(kernel_size=patch_size, stride=patch_size)
-        self.projection = nn.Linear(in_channels * patch_size**2, embedding_dim)
-        self.norm = nn.LayerNorm(embedding_dim)
+        self.projection = nn.Conv2d(in_channels, embedding_dim, kernel_size=patch_size, stride=patch_size)
 
     def forward(self, x):
-        x = self.unfolding(x)  # H * W * C -> N * ( P * P * C)
-        x = x.transpose(1, 2)  # N * ( P * P * C) -> N * ( P * P * C)
-        x = self.projection(x)  # N * ( P * P * C) -> N * E
-        x = self.norm(x)
+        x = self.projection(x)
+        B, C, H, W = x.shape
+        x = x.view(B,C,H*W).transpose(1,2)
         return x
 
 
@@ -36,5 +33,6 @@ class MLP(nn.Module):
         x = self.activation(x)
         x = self.dropout(x)
         x = self.fc2(x)
+        x = self.activation(x)
         x = self.dropout(x)
         return x

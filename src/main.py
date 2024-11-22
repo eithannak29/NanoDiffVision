@@ -3,7 +3,6 @@ import argparse
 from typing import Dict, Any
 from pytorch_lightning import Trainer
 from pytorch_lightning.loggers import WandbLogger
-from pytorch_lightning.callbacks import ModelCheckpoint
 from utils import load_config, get_data_module
 from vit import ViT
 
@@ -13,24 +12,10 @@ def train_model(config: Dict[str, Any]):
     model = ViT(**config["model"], **config["trainer"])
     logger = WandbLogger(**config["logger"])
 
-    checkpoint_callback = ModelCheckpoint(
-        monitor="val_loss",
-        mode="min",
-        save_top_k=1,
-        dirpath=config["save"]["dir"],
-        filename=config["save"]["name"] + "-best",
-    )
-
-    trainer = Trainer(
-        logger=logger, callbacks=[checkpoint_callback], **config["trainer"]
-    )
+    trainer = Trainer(logger=logger, **config["trainer"])
     trainer.fit(model=model, datamodule=data_module)
-    
-    best_model_path = os.path.join(config["save"]["dir"], config["save"]["name"] + "-best.ckpt")
-    if best_model_path:
-        model = ViT.load_from_checkpoint(best_model_path)
-    
     trainer.test(model=model, datamodule=data_module)
+
 
 def main(config_path: str):
     try:

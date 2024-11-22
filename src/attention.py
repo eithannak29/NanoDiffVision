@@ -10,9 +10,9 @@ class MultiHeadAttention(nn.Module):
         assert dim % num_heads == 0, "dim must be divisible by num_heads"
         self.head_dim = dim // num_heads
 
-        self.K = nn.Linear(in_features=dim, out_features=dim)
-        self.Q = nn.Linear(in_features=dim, out_features=dim)
-        self.V = nn.Linear(in_features=dim, out_features=dim)
+        self.K = nn.Linear(in_features=dim, out_features=dim, bias=True)
+        self.Q = nn.Linear(in_features=dim, out_features=dim, bias=False)
+        self.V = nn.Linear(in_features=dim, out_features=dim, bias=False)
 
         self.out_proj = nn.Linear(in_features=dim, out_features=dim)
 
@@ -45,13 +45,13 @@ class MultiHeadDiffAttention(nn.Module):
         assert dim % num_heads == 0, "dim must be divisible by num_heads"
         self.head_dim = dim // num_heads
 
-        self.K1 = nn.Linear(in_features=dim, out_features=dim)
-        self.Q1 = nn.Linear(in_features=dim, out_features=dim)
+        self.K1 = nn.Linear(in_features=dim, out_features=dim, bias=True)
+        self.Q1 = nn.Linear(in_features=dim, out_features=dim, bias=False)
 
-        self.K2 = nn.Linear(in_features=dim, out_features=dim)
-        self.Q2 = nn.Linear(in_features=dim, out_features=dim)
+        self.K2 = nn.Linear(in_features=dim, out_features=dim, bias=True)
+        self.Q2 = nn.Linear(in_features=dim, out_features=dim, bias=False)
 
-        self.V = nn.Linear(in_features=dim, out_features=dim)
+        self.V = nn.Linear(in_features=dim, out_features=dim, bias=False)
 
         self.lambda_q1 = nn.Parameter(torch.randn(num_heads, 1))
         self.lambda_k1 = nn.Parameter(torch.randn(num_heads, 1))
@@ -60,7 +60,7 @@ class MultiHeadDiffAttention(nn.Module):
 
         self.lambda_init = 0.8 - 0.6 * torch.exp(torch.tensor(-0.3 * (layer_idx - 1)))
 
-        self.norm =  nn.GroupNorm(num_groups=num_groups, num_channels=dim)
+        self.norm = nn.GroupNorm(num_groups=num_groups, num_channels=dim)
 
         self.out_proj = nn.Linear(in_features=dim, out_features=dim)
 
@@ -102,7 +102,7 @@ class MultiHeadDiffAttention(nn.Module):
 
         x = torch.matmul(attention, V)
         x = x.transpose(1, 2).contiguous().view(batch_size, -1, self.dim)
-       
+
         x = x.transpose(1, 2)
         x = self.norm(x)
         x = x.transpose(1, 2)

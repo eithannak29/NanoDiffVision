@@ -1,13 +1,13 @@
 model:
   in_channels: 1
   image_size: 28
-  patch_size: 4
-  embedding_dim: 128
+  patch_size: 7
+  embedding_dim: 32
   hidden_dim: 128
   num_blocks: 2
   num_heads: 2
   out_dim: 10
-  dropout: 0.2
+  dropout: 0.1
   use_diff_attention: False
 
 data:

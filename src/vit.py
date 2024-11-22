@@ -17,18 +17,18 @@ class TransformerEncoder(nn.Module):
         layer_idx=1,
     ):
         super().__init__()
-        self.ln_pre_attn = nn.LayerNorm(dim)
+        self.norm1 = nn.LayerNorm(dim)
         self.attention = (
             MultiHeadDiffAttention(dim, num_heads, layer_idx)
             if use_diff_attention
             else MultiHeadAttention(dim, num_heads)
         )
-        self.ln_pre_ffn = nn.LayerNorm(dim)
+        self.norm2 = nn.LayerNorm(dim)
         self.ffn = MLP(dim, hidden_dim, dim, dropout)
 
     def forward(self, x):
-        x = x + self.attention(self.ln_pre_attn(x))
-        x = x + self.ffn(self.ln_pre_ffn(x))
+        x = x + self.attention(self.norm1(x))
+        x = x + self.ffn(self.norm2(x))
         return x
 
 
@@ -48,13 +48,13 @@ class ViT(pl.LightningModule):
         max_epochs=50,
     ):
         super().__init__()
-        
+
         self.max_epochs = max_epochs
 
         self.patch_embeddings = PatchEmbeddings(in_channels, patch_size, embedding_dim)
         num_patches = (image_size // patch_size) ** 2
         self.positional_embeddings = nn.Parameter(
-            torch.randn(1, 1 + num_patches, embedding_dim)
+            torch.randn(1, num_patches + 1, embedding_dim)
         )
         self.cls_token = nn.Parameter(torch.randn(1, 1, embedding_dim))
 

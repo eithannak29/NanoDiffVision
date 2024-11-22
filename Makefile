@@ -14,9 +14,9 @@ endef
 
 all: cifar10 mnist
 
-cifar10:
-	@echo "Running all CIFAR10 configurations:"
-	@for file in $(CIFAR10_CONFIG_FILES); do \
+mnist:
+	@echo "Running all MNIST configurations:"
+	@for file in $(MNIST_CONFIG_FILES); do \
 		echo "Running configuration: $$file"; \
 		$(call RUN_COMMAND,$$file); \
 		echo "Finished configuration: $$file"; \
@@ -30,9 +30,9 @@ fashionmnist:
 		echo "Finished configuration: $$file"; \
 	done
 
-mnist:
-	@echo "Running all MNIST configurations:"
-	@for file in $(MNIST_CONFIG_FILES); do \
+cifar10:
+	@echo "Running all CIFAR10 configurations:"
+	@for file in $(CIFAR10_CONFIG_FILES); do \
 		echo "Running configuration: $$file"; \
 		$(call RUN_COMMAND,$$file); \
 		echo "Finished configuration: $$file"; \
