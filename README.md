@@ -60,9 +60,9 @@ Three model configurations were evaluated on the MNIST dataset to compare the pe
 
 | **Model**                | **Parameters** | **Validation Loss** | **Test Loss** | **Test Accuracy** |
 |--------------------------|----------------|---------------------|---------------|--------------------|
-| **MNSITliteViT**         | 33.8K          | 0.638               | 0.626         | 95.51%            |
-| **MNSITliteViT_balanced**| 55.6K          | 0.633               | 0.618         | 95.53%            |
-| **MNSITliteViT_Diff**    | 38.1K          | 0.624               | 0.624         | 95.75%            |
+| **ViT**         | 33.8K          | 0.638               | 0.626         | 95.51%            |
+| **ViTBalanced** | 55.6K          | 0.633               | 0.618         | 95.53%            |
+| **ViT_Diff**    | 38.1K          | 0.624               | 0.624         | 95.75%            |
 
 ![Validation Loss on MNIST](results/mnist_val_loss_comparison.png)
 
