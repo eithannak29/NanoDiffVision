@@ -52,8 +52,6 @@ make config CONFIG_FILE=configs/CIFAR10/lite_config.yml
 
 ## 📊 Results
 
-## 🤝 Contributions
-
 ## 🏛️ License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
