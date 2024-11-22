@@ -12,7 +12,7 @@ Transformers have revolutionized the field of computer vision. NanoDiffVision fo
 - **Integrate and compare** classic Self-Attention with Differential Attention.
 - **Analyze the performance** of compact models, especially in terms of their ability to handle relevant information while limiting noise.
 
-## 🚀 Installation
+## 🛠️ Installation
 
 To install and use NanoDiffVision, follow the steps below:
 
