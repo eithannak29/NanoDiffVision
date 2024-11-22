@@ -52,6 +52,13 @@ make config CONFIG_FILE=configs/CIFAR10/lite_config.yml
 
 ## 📊 Results
 
+### Validation Loss on MNIST Dataset
+
+The chart below compares the validation loss of three configurations of NanoDiffVision on the MNIST dataset:
+
+![Validation Loss on MNIST](results/mnist_val_loss_comparison.png)
+
+
 ## 🏛️ License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
