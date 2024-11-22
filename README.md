@@ -68,8 +68,6 @@ Three model configurations were evaluated on the MNIST dataset to compare the pe
 
 </div>
 
-The chart below compares the validation loss of three configurations of NanoDiffVision on the MNIST dataset:
-
 <div align="center">
   <img src="results/mnist_val_loss_comparison.png" alt="Validation Loss on MNIST" width="600">
 </div>
