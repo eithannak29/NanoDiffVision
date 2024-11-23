@@ -1,4 +1,4 @@
-# NanoDiffVision 🐜
+# NanoDiffVision 🐜 : Exploring the Future of Vision Transformers with Differential Attention
 
 ![Python](https://img.shields.io/badge/Python-%233776AB.svg?style=flat&logo=python&logoColor=white)
 ![PyTorch Lightning](https://img.shields.io/badge/PyTorchLightning-black.svg?style=flat&logo=lightning&logoColor=purple)
