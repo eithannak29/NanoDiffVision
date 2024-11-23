@@ -19,7 +19,7 @@ Transformers have revolutionized the field of computer vision. NanoDiffVision fo
 - **Integrate and compare** classic Self-Attention with Differential Attention.
 - **Analyze the performance** of compact models, especially in terms of their ability to handle relevant information while limiting noise.
 
-## 🛠️ Installation
+## 📦 Installation
 
 To install and use NanoDiffVision, follow the steps below:
 
@@ -105,6 +105,12 @@ Three model configurations were evaluated on the FashionMNIST dataset to compare
 ### Conclusion
 
 The results emphasize the potential of Differential Attention as a lightweight yet highly effective alternative to traditional Self-Attention mechanisms. With significantly fewer parameters compared to ViTBalanced, ViTDiff achieves comparable if not better performance across all evaluated metrics. This highlights its promise as a transformative approach in vision tasks, especially in resource-constrained environments.
+
+## 🛠️ Technical Details
+
+- **Framework**: PyTorch Lightning
+- **Datasets**: MNIST, FashionMNIST
+- **Hardware**: NVIDIA RTX 3070 Ti
 
 ## 🔗 References
 
