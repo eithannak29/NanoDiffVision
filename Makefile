@@ -10,7 +10,7 @@ endef
 
 .PHONY: all mnist specific_config
 
-all: mnist
+all: mnist fashionmnist
 
 mnist:
 	@echo "Running all MNIST configurations:"

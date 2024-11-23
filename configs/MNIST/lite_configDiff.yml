@@ -20,6 +20,7 @@ trainer:
   max_epochs: 20
 
 logger:
+    enabled: True
     save_dir: logs
     name: MNSITliteViTDiff
 

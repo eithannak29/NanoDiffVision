@@ -10,8 +10,10 @@ from vit import ViT
 def train_model(config: Dict[str, Any]):
     data_module = get_data_module(config["data"])
     model = ViT(**config["model"], **config["trainer"])
-    logger = WandbLogger(**config["logger"])
-
+    enabled_logger = config["logger"].pop("enabled", None)
+    logger = None
+    if enabled_logger: 
+        logger = WandbLogger(**config["logger"])
     trainer = Trainer(logger=logger, **config["trainer"])
     trainer.fit(model=model, datamodule=data_module)
     trainer.test(model=model, datamodule=data_module)
