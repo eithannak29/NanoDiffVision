@@ -35,12 +35,6 @@ If you don't have **uv** installed, please refer to the [installation guide here
 
 To train the model, use the provided Makefile:
 
-To train on all CIFAR10 configurations:
-
-```bash
-make cifar10
-```
-
 To train on all MNIST configurations:
 
 ```bash
@@ -56,7 +50,7 @@ make fashionmnist
 To run a specific configuration file:
 
 ```bash
-make config CONFIG_FILE=configs/CIFAR10/lite_config.yml
+make config CONFIG_FILE=configs/MNIST/lite_config.yml
 ```
 
 ## 📊 Results
