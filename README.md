@@ -27,7 +27,9 @@ To install and use NanoDiffVision, follow the steps below:
 git clone https://github.com/eithannak29/NanoDiffVision.git
 cd NanoDiffVision
 uv sync
+
 ```
+If you don't have **uv** installed, please refer to the [installation guide here](https://docs.astral.sh/uv/getting-started/installation/).
 
 ## 🧪 Usage
 
