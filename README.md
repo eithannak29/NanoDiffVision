@@ -59,6 +59,8 @@ make config CONFIG_FILE=configs/CIFAR10/lite_config.yml
 
 ## 📊 Results
 
+Comparison Note: For balanced configurations, I increased the embedding dimension to balance the number of parameters.
+
 ### Results on the MNIST Dataset
 
 The chart below compares the validation loss of three configurations on the MNIST dataset:
