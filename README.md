@@ -55,7 +55,7 @@ make config CONFIG_FILE=configs/MNIST/lite_config.yml
 
 ## 📊 Results
 
-Comparison Note: For balanced configurations, I increased the embedding dimension to balance the number of parameters.
+Comparison Note: For balanced configurations, I increased the number oh heads by 2 to balance the number of parameters.
 
 ### Results on the MNIST Dataset
 
@@ -68,7 +68,7 @@ Three model configurations were evaluated on the MNIST dataset to compare the pe
 | **Model**                | **Parameters** | **Validation Loss** | **Test Loss** | **Test Accuracy** |
 |--------------------------|----------------|---------------------|---------------|--------------------|
 | **ViT**         | 33.8K          | 0.638               | 0.626         | 95.51%            |
-| **ViTBalanced** | 55.6K          | 0.633               | 0.624         | 95.53%            |
+| **ViTBalanced** | 33.8K          | 0.633               | 0.624         | 95.53%            |
 | **ViTDiff**    | 38.1K          | 0.624               | 0.618         | 95.75%            |
 
 </div>
@@ -91,7 +91,7 @@ Three model configurations were evaluated on the FashionMNIST dataset to compare
 | **Model**                | **Parameters** | **Validation Loss** | **Test Loss** | **Test Accuracy** |
 |--------------------------|----------------|---------------------|---------------|--------------------|
 | **ViT**         | 33.8K          | 0.813               | 0.826         | 85.86%            |
-| **ViTBalanced** | 55.6K          | 0.792               | 0.798         | 86.79%            |
+| **ViTBalanced** | 33.8K          | 0.792               | 0.798         | 86.79%            |
 | **ViTDiff**    | 38.1K          | 0.788               | 0.796         | 87.26%            |
 
 </div>
