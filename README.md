@@ -55,7 +55,7 @@ make config CONFIG_FILE=configs/MNIST/lite_config.yml
 
 ## 📊 Results
 
-Comparison Note: For balanced configurations, I increased the number oh heads by 2 to balance the number of parameters.
+Comparison Note: For balanced configurations, I increased the number of heads by 2 in order to balance.
 
 ### Results on the MNIST Dataset
 
