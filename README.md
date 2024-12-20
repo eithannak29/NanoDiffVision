@@ -55,8 +55,6 @@ make config CONFIG_FILE=configs/MNIST/lite_config.yml
 
 ## 📊 Results
 
-Comparison Note: For balanced configurations, I increased the number of heads by 2 in order to balance.
-
 ### Results on the MNIST Dataset
 
 The chart below compares the validation loss of three configurations on the MNIST dataset:
@@ -65,11 +63,11 @@ Three model configurations were evaluated on the MNIST dataset to compare the pe
 
 <div align="center">
 
-| **Model**                | **Parameters** | **Validation Loss** | **Test Loss** | **Test Accuracy** |
-|--------------------------|----------------|---------------------|---------------|--------------------|
-| **ViT**         | 33.8K          | 0.638               | 0.626         | 95.51%            |
-| **ViTBalanced** | 33.8K          | 0.633               | 0.624         | 95.53%            |
-| **ViTDiff**    | 38.1K          | 0.624               | 0.618         | 95.75%            |
+| **Model**                | **Parameters** | **Num Heads** | **Validation Loss** | **Test Loss** | **Test Accuracy** |
+|--------------------------|----------------|---------------|---------------------|---------------|--------------------|
+| **ViT**         | 81.5K          | 2             | 0.748               | 0.724         | 91.70%            |
+| **ViTBalanced** | 81.5K          | 4             | 0.672               | 0.653         | 94.76%            |
+| **ViTDiff**    | 98.2K          | 2             | 0.627               | 0.619         | 96.03%            |
 
 </div>
 
@@ -88,11 +86,13 @@ Three model configurations were evaluated on the FashionMNIST dataset to compare
 
 <div align="center">
   
-| **Model**                | **Parameters** | **Validation Loss** | **Test Loss** | **Test Accuracy** |
-|--------------------------|----------------|---------------------|---------------|--------------------|
-| **ViT**         | 33.8K          | 0.813               | 0.826         | 85.86%            |
-| **ViTBalanced** | 33.8K          | 0.792               | 0.798         | 86.79%            |
-| **ViTDiff**    | 38.1K          | 0.788               | 0.796         | 87.26%            |
+| **Model**                | **Parameters** | **Num Heads** | **Validation Loss** | **Test Loss** | **Test Accuracy** |
+|--------------------------|----------------|---------------|---------------------|---------------|--------------------|
+| **ViT**         | 81.5K          | 2             | 0.866               | 0.883         | 83.14%            |
+| **ViTBalanced** | 81.5K          | 4             | 0.839               | 0.844         | 84.90%            |
+| **ViTDiff**    | 98.2K          | 2             | 0.789               | 0.799         | 86.73%            |
+
+</div>
 
 </div>
 
