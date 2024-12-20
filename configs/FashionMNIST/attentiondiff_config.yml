@@ -2,9 +2,9 @@ model:
   in_channels: 1
   image_size: 28
   patch_size: 4
-  embedding_dim: 32
+  embedding_dim: 64
   hidden_dim: 128
-  num_blocks: 4
+  num_blocks: 2
   num_heads: 2
   out_dim: 10
   dropout: 0.1
@@ -12,7 +12,7 @@ model:
 
 data:
   name: FashionMNIST
-  batch_size: 128
+  batch_size: 256
   data_dir: ./data
   num_workers: 4
 
