@@ -102,7 +102,7 @@ Three model configurations were evaluated on the FashionMNIST dataset to compare
 
 ### Conclusion
 
-The results emphasize the potential of Differential Attention as a lightweight yet highly effective alternative to traditional Self-Attention mechanisms. With significantly fewer parameters compared to ViTBalanced, ViTDiff achieves comparable if not better performance across all evaluated metrics. This highlights its promise as a transformative approach in vision tasks, especially in resource-constrained environments.
+The results emphasize the potential of Differential Attention as a lightweight yet highly effective alternative to traditional Self-Attention mechanisms. With significantly fewer attention heads compared to ViTBalanced, ViTDiff achieves comparable if not better performance across all evaluated metrics. This highlights its promise as a transformative approach in vision tasks, especially in resource-constrained environments.
 
 ## 🔗 References
 
